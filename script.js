@@ -35,14 +35,16 @@ $(".kort").click(function(){
 	if ("vibrate" in navigator) {
 		navigator.vibrate(10);
 	}
+
 	kortknapp= this.id.substring(4,5);
+
 	if(kort[kortknapp-1].length == 0 && typeof mellomlagring[0] != "undefined"){
 		kort[kortknapp-1][0]=mellomlagring[0];
 		kort[kortknapp-1][1]=mellomlagring[1];
 		
 			var a = mellomlagring[0];
 			var b = mellomlagring[1];
-			
+
 			$(this).append("<div id='kort"+kortknapp+"-1' style='position:absolute; top:0px'><img src ='./pics/"+a+b+".png' height='auto' width='100%'></div>");
 			
 			$("#kort"+mellomlagring[2]+"-"+antallIkort[mellomlagring[2]-1]+"").remove();
@@ -54,7 +56,7 @@ $(".kort").click(function(){
 			mellomlagring=[];
 	} 
 	else{
-	kortcheck();
+		kortcheck();
 	}
 });
 
@@ -75,30 +77,74 @@ function kortcheck(){
 			tallkort2  = kort[i][sistekort2-2];
 			typekort2  = kort[i][sistekort2-1];
 			
+			console.log(tallkort2);
+
 			if(tallkort1<tallkort2 && typekort1 == typekort2){
+				console.log("denne");
 				kort[kortknapp-1].splice(sistekort1-2,2);
 				$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").remove();
 				antallIkort[kortknapp-1]--;
 				return;
 			}
+			else {
+				if(tallkort2 == undefined) {
+					for (var p = 0; p<=3; p++) {
+						$("#kort"+(p+1)+"-"+antallIkort[p]+"").css({
+							"width":"100%",
+					 	});
+					}
+					$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").css({
+						"width":"110%"
+					});	
+				}
+
+			}
 		}
 	}
 	hentkortverdi();
 }
-
+var tall = 0;
 function hentkortverdi(){
-		var a = kort[kortknapp-1].length;
-		var b = kort[kortknapp-1][a-2];
-		var c = kort[kortknapp-1][a-1];
-		mellomlagring[0]=b;
-		mellomlagring[1]=c;
-		mellomlagring[2]=kortknapp;
+	tall++;
+	var a = kort[kortknapp-1].length;
+	var b = kort[kortknapp-1][a-2];
+	var c = kort[kortknapp-1][a-1];
+	mellomlagring[0]=b;
+	mellomlagring[1]=c;
+	mellomlagring[2]=kortknapp;
 }
 
+// function makeBigSmall(kortknappen) {
+// 	for(var i = 0; i<4; i++) {
+
+// 		// $("#kort"+(i+1)+"-"+antallIkort[i]+"").css({
+// 		// 	"width":"100%",
+// 		// });	
+
+// 		console.log(kortknappen + "   :   " + antallIkort[i]);
+// 		if(antallIkort[i] == 0) {
+// 			console.log("kort"+kortknappen+"-"+antallIkort[kortknappen]);
+// 			var divId2 = "kort"+kortknappen+"-"+antallIkort[i];
+// 			$("#kort"+kortknapp+"-"+antallIkort[kortknappen]+"").css({
+// 				"width":"110%"
+// 			});	
+// 			break; 		
+// 		}
+// 	}
+// }
+
+
 function card(){
-var nummer;
-var item;
-var tall;
+
+	for (var p = 0; p<=3; p++) {
+		$("#kort"+(p+1)+"-"+antallIkort[p]+"").css({
+			"width":"100%",
+	 	});
+	}
+
+	var nummer;
+	var item;
+	var tall;
 	for(var i = 0; i<=3; i++){
 		nummer= Math.floor(Math.random()*allekort1.length);
 		item = allekort1[nummer];
