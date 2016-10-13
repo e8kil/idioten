@@ -1,65 +1,128 @@
-html, body {
-width:100%;
-height:100%;
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+    margin:0;
+    padding:0;
+}
+
+html {
+	width:100%;
+	height:100%;
 }
 body {
-background-size: cover;
-background-image: url('./pics/background2.jpg');
-overflow:hidden;
+	background-size: cover;
+	background-image: url('./pics/background2.jpg');
+	overflow:hidden;
+	margin: 0px !important;
+    padding: 0px !important;
+    	width:100%;
+	height:100%;
 }
 #container {
-width:100%;
-height:100%;
+	width:100%;
+	height:100%;
 }
 
 #content{
-margin:0 auto;
-width:90%;
-margin-top:20px;
+	margin:0 auto;
+	width:90%;
+	margin-top:20px;
 }
 #kortstokk{
-width:18%;
-float:left;
+	width:18%;
+	float:left;
 }
 #kortstokk1{
-width:90%;
-margin:0 auto;
-background-size:100%100%;
+	width:90%;
+	margin:0 auto;
+	background-size:100%100%;
 
 }
 #allekort{
-width:78%;
-float:right;
-margin-top:15px;
+	width:78%;
+	float:right;
+	margin-top:15px;
 }
 .kortContainer{
-width:25%;
-float:left;
-height:500px;
+	width:25%;
+	float:left;
+	height:500px;
 }
 
 .kort{
-z-index: 1;
-position: absolute;
-width:13%;
-border-radius:7px;
+	z-index: 1;
+	position: absolute;
+	width:13%;
+	border-radius:7px;
 }
 
 #startpaanytt{
-width:60%;
-margin:0 auto;
-color:white;
-height:25px;
-cursor:pointer;
-border-radius:10px;
-margin-top:30px;
-background:green;
-border:1px solid white;
+	width:60%;
+	margin:0 auto;
+	color:white;
+	height:25px;
+	cursor:pointer;
+	border-radius:10px;
+	margin-top:30px;
+	background:green;
+	border:1px solid white;
 }
 #refresh{
-width:20%;
-background-image:url('./pics/re.png');
-background-size:100% 100%;
-margin:0 auto;
-height:100%;
+	width:20%;
+	background-image:url('./pics/re.png');
+	background-size:100% 100%;
+	margin:0 auto;
+	height:100%;
+}
+#newGameShaddow {
+	position: absolute;
+	height:100%;
+	width: 100%;
+/*	background: black;
+	opacity: 0.5;*/
+	z-index: 60;
+}
+#newGame {
+	position: absolute;
+	width: 30%;
+	left:40%;
+	top:45%;
+	z-index: 100;
+	height:10%;
+}
+#newGameButton {
+	position: absolute;
+	width: 45%;
+	left:55%;
+	background: green;
+	border-radius: 10px;
+	top:5%;
+	float:left;
+	font-size: 10px;
+	text-align:center;
+	color:#fff;
+	padding:5px;
+	box-shadow: 6px 6px 5px #000;
+}
+#newGameButtonCancel {
+	position: absolute;
+	width: 45%;
+	left:0%;
+	background: blue;
+	border-radius: 10px;
+	top:5%;
+	font-size: 10px;
+	text-align: center;
+	color: #fff;
+	padding:5px;
+	box-shadow: 6px 6px 5px #000;
+}
+
+#winnerLooserHolder {
+	position: absolute;
+	width:40%;
+	left:30%;
+	top:30%;
+	z-index: 150;
+	text-align: center;
+	color:#fff;
+	font-size: 30px;
 }

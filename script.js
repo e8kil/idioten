@@ -11,12 +11,21 @@ var kortverdi1;
 var kortverdi2;
 var kortverdi3;
 var hoyde;
+var cardBeforeTop;
+var cardBefore;
+var siteHeight = $("body").height();
+var lenghtBetweenCards = siteHeight/10;
+var lenghtBetweenCardsWhenSmall = siteHeight/13;
+var gameWinner = false;
+$("#newGame, #newGameShaddow, #winnerLooserHolder").hide();
+
 
 $(document).ready( function () {
 	newGame();
 });
 
 $("#kortstokk1").click(function(){
+
 	if ("vibrate" in navigator) {
 		navigator.vibrate(10);
 	}
@@ -30,15 +39,20 @@ $("#kortstokk1").click(function(){
 	mellomlagring=[];
 	card();
 	runde++;
+
+	if(allekort1.length == 0) {
+		checkIfGameOver();
+	}
 });
 $(".kort").click(function(){
+
 	if ("vibrate" in navigator) {
 		navigator.vibrate(10);
 	}
 
 	kortknapp= this.id.substring(4,5);
 
-	if(kort[kortknapp-1].length == 0 && typeof mellomlagring[0] != "undefined"){
+	if(kort[kortknapp-1].length == 0 && typeof mellomlagring[0] != "undefined" && mellomlagring[0].length !== 0){
 		kort[kortknapp-1][0]=mellomlagring[0];
 		kort[kortknapp-1][1]=mellomlagring[1];
 		
@@ -48,6 +62,7 @@ $(".kort").click(function(){
 			$(this).append("<div id='kort"+kortknapp+"-1' style='position:absolute; top:0px'><img src ='./pics/"+a+b+".png' height='auto' width='100%'></div>");
 			
 			$("#kort"+mellomlagring[2]+"-"+antallIkort[mellomlagring[2]-1]+"").remove();
+			$("#kort"+mellomlagring[2]+"-"+antallIkort[mellomlagring[2]-1]+"").removeClass("big");
 			var a = kort[mellomlagring[2]-1].length;
 			kort[mellomlagring[2]-1].splice(a-2,2);
 			antallIkort[mellomlagring[2]-1]--;
@@ -58,6 +73,14 @@ $(".kort").click(function(){
 	else{
 		kortcheck();
 	}
+	if(allekort1.length == 0) {
+		checkifGameWinner();
+
+		if(gameWinner == false) {
+			checkIfGameOver();
+		}
+	}
+	resizeStack();
 });
 
 function kortcheck(){
@@ -70,17 +93,15 @@ function kortcheck(){
 	var tallkort2; 
 	var typekort2;
 
-	
+	var runde = 1;
 	for (var i = 0; i<=3; i++) {
 		if(kortknapp-1!=i){
 			sistekort2 = kort[i].length;
 			tallkort2  = kort[i][sistekort2-2];
 			typekort2  = kort[i][sistekort2-1];
-			
-			console.log(tallkort2);
 
 			if(tallkort1<tallkort2 && typekort1 == typekort2){
-				console.log("denne");
+
 				kort[kortknapp-1].splice(sistekort1-2,2);
 				$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").remove();
 				antallIkort[kortknapp-1]--;
@@ -88,54 +109,53 @@ function kortcheck(){
 			}
 			else {
 				if(tallkort2 == undefined) {
-					for (var p = 0; p<=3; p++) {
-						$("#kort"+(p+1)+"-"+antallIkort[p]+"").css({
-							"width":"100%",
-					 	});
+					if(runde == 1) {
+						for (var p = 0; p<=3; p++) {
+							$("#kort"+(p+1)+"-"+antallIkort[p]+"").css({
+								"width":"100%",
+						 	});
+
+						}
+						var className = $("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").attr('class');
+
+						if(className != "big") {
+							for (var p = 0; p<=3; p++) {
+								$("#kort"+(p+1)+"-"+antallIkort[p]+"").removeClass("big");
+							}
+							$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").css({
+								"width":"110%"
+							});
+							var a = kort[kortknapp-1].length;
+							var b = kort[kortknapp-1][a-2];
+							var c = kort[kortknapp-1][a-1];
+							mellomlagring[0]=b;
+							mellomlagring[1]=c;
+							mellomlagring[2]=kortknapp;
+
+							$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").addClass("big");
+						}
+						else {
+							$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").css({
+								"width":"100%"
+							});	
+							$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").removeClass("big");
+
+							mellomlagring[0]=[];
+							mellomlagring[1]=[];
+							mellomlagring[2]=[];				
+						}
+						runde++;
 					}
-					$("#kort"+kortknapp+"-"+antallIkort[kortknapp-1]+"").css({
-						"width":"110%"
-					});	
 				}
 
 			}
 		}
 	}
-	hentkortverdi();
-}
-var tall = 0;
-function hentkortverdi(){
-	tall++;
-	var a = kort[kortknapp-1].length;
-	var b = kort[kortknapp-1][a-2];
-	var c = kort[kortknapp-1][a-1];
-	mellomlagring[0]=b;
-	mellomlagring[1]=c;
-	mellomlagring[2]=kortknapp;
 }
 
-// function makeBigSmall(kortknappen) {
-// 	for(var i = 0; i<4; i++) {
-
-// 		// $("#kort"+(i+1)+"-"+antallIkort[i]+"").css({
-// 		// 	"width":"100%",
-// 		// });	
-
-// 		console.log(kortknappen + "   :   " + antallIkort[i]);
-// 		if(antallIkort[i] == 0) {
-// 			console.log("kort"+kortknappen+"-"+antallIkort[kortknappen]);
-// 			var divId2 = "kort"+kortknappen+"-"+antallIkort[i];
-// 			$("#kort"+kortknapp+"-"+antallIkort[kortknappen]+"").css({
-// 				"width":"110%"
-// 			});	
-// 			break; 		
-// 		}
-// 	}
-// }
 
 
 function card(){
-
 	for (var p = 0; p<=3; p++) {
 		$("#kort"+(p+1)+"-"+antallIkort[p]+"").css({
 			"width":"100%",
@@ -166,27 +186,116 @@ function card(){
 			kort[i][tallposisjon+1]=c;
 		}
 		antallIkort[i]++;
+
+
 		var a = i+1;
 		var divId = "kort"+a+"-"+antallIkort[i];
+
 		var a = i+1;
 		$("#kort"+a).append("<div id='"+divId+"'><img src ='./pics/"+tall+c+".png'  height='auto' width='100%'></div>");
+
 		if(antallIkort[i]==1){
 			$("#"+divId+"").css({
-				"border-radius":"15px","z-index": ""+antallIkort[i]+"", "position": "absolute", "top": ""+(antallIkort[i]-1)*100+"px",  "width":"100%"
+				"border-radius":"15px",
+				"z-index": ""+antallIkort[i]+"", 
+				"position": "absolute", 
+				"top": ""+0+"px",  
+				"width":"100%"
 			});
 		}
 		else {
+			cardBefore = "kort"+a+"-"+(antallIkort[i]-1);
+			cardBeforeTop = $("#"+cardBefore+"").css("top");
+			cardBeforeTop = cardBeforeTop.slice(0,-2);
+			cardBeforeTop = parseInt(cardBeforeTop);
+
 			$("#"+divId+"").css({
-				"z-index": ""+antallIkort[i]+"", "position": "absolute","top": ""+(antallIkort[i]-1)*75+"px",  "width":"100%"
+				"z-index": ""+antallIkort[i]+"", 
+				"position": "absolute",
+				"top": ""+(cardBeforeTop+lenghtBetweenCards)+"px",
+				"width":"100%"
 			});
 		}
 
 		allekort1.splice(nummer, 1);
 	}
+	resizeStack();
 }
+
+function resizeStack() {
+	for (var p = 0; p<=3; p++) {
+		if(antallIkort[p]>=5) {
+			var pxToTop = 0;
+			var smallStack = antallIkort[p] - 2;
+			var normalStack = antallIkort[p];
+			var normalStackStart = antallIkort[p] -1;
+			for(var t = 1; t<=smallStack; t++) {
+				if(antallIkort[p]>8 && t<=(antallIkort[p]/1.5)) {
+					$("#kort"+(p+1)+"-"+t).css({
+						"top": ""+(pxToTop)+"px"
+					});	
+					pxToTop = pxToTop + lenghtBetweenCardsWhenSmall/1.5;	
+				}
+				else {
+					$("#kort"+(p+1)+"-"+t).css({
+						"top": ""+(pxToTop)+"px"
+					});	
+					pxToTop = pxToTop + lenghtBetweenCardsWhenSmall;					
+				}
+
+			}
+			for(normalStackStart; normalStackStart<=normalStack; normalStackStart++) {
+					cardBefore = "kort"+(p+1)+"-"+(normalStackStart-1);
+					cardBeforeTop = $("#"+cardBefore+"").css("top");
+					cardBeforeTop = cardBeforeTop.slice(0,-2);
+					cardBeforeTop = parseInt(cardBeforeTop);
+					$("#kort"+(p+1)+"-"+normalStackStart).css({
+						"top": ""+(cardBeforeTop+lenghtBetweenCards)+"px",
+					});	
+					pxToTop = pxToTop + lenghtBetweenCardsWhenSmall;
+			}		
+		}
+		else {
+			var pxToTop = 0;
+			for(var t = 1; t<=5; t++) {
+				$("#kort"+(p+1)+"-"+t).css({
+					"top": ""+(pxToTop)+"px"
+				});	
+				pxToTop = pxToTop + lenghtBetweenCards;
+			}	
+		}
+	}	
+}
+
+function checkifGameWinner(){
+	if(antallIkort[0] == 1 && antallIkort[1] == 1 && antallIkort[2] == 1 &&  antallIkort[3] == 1) {
+		console.log("Winner!");
+		$("#winnerLooserHolder").html("Winner!");
+		gameWinner = true;
+		setTimeout(function(){
+			$("#newGame, #newGameShaddow, #winnerLooserHolder").show();
+		},500);
+	}
+}
+
+function checkIfGameOver(){
+	var kort1 = (kort[0][(antallIkort[0]*2)-1]);
+	var kort2 = (kort[1][(antallIkort[1]*2)-1]);
+	var kort3 = (kort[2][(antallIkort[2]*2)-1]);
+	var kort4 = (kort[3][(antallIkort[3]*2)-1]);
+
+	if(kort1 != kort2 && kort1 != kort3 && kort1 != kort4 && kort2 != kort3 && kort2 != kort4 && kort3!= kort4 && kort1 !=undefined && kort2 !=undefined && kort3 !=undefined && kort4 !=undefined) {
+		console.log("game over");
+		$("#winnerLooserHolder").html("Game over");
+		setTimeout(function(){
+			$("#newGame, #newGameShaddow, #winnerLooserHolder").show();
+		},500);
+	}
+}
+
 function newGame(){
 
-		$(".kort").html("");
+	$(".kort").html("");
 
 	mellomlagring=[];
 	allekort1=["02_of_spade","03_of_spade","04_of_spade","05_of_spade","06_of_spade","07_of_spade","08_of_spade","09_of_spade",
@@ -197,6 +306,14 @@ function newGame(){
 	"10_of_diamonds","11_of_diamonds","12_of_diamonds","13_of_diamonds","14_of_diamonds",
 	"02_of_clubs","03_of_clubs","04_of_clubs","05_of_clubs","06_of_clubs","07_of_clubs","08_of_clubs","09_of_clubs","10_of_clubs","11_of_clubs",
 	"12_of_clubs","13_of_clubs","14_of_clubs"];
+
+	// allekort1=["06_of_spade","07_of_spade","08_of_spade","09_of_spade","10_of_spade","11_of_spade","12_of_spade","13_of_spade","14_of_spade","06_of_hearts","07_of_hearts","08_of_hearts","09_of_hearts","10_of_hearts",
+	// "11_of_hearts","12_of_hearts","13_of_hearts","14_of_hearts","06_of_diamonds","07_of_diamonds","08_of_diamonds","09_of_diamonds",
+	// "10_of_diamonds","11_of_diamonds","12_of_diamonds","13_of_diamonds","14_of_diamonds","06_of_clubs","07_of_clubs","08_of_clubs","09_of_clubs","10_of_clubs","11_of_clubs",
+	// "12_of_clubs","13_of_clubs","14_of_clubs"];
+
+	// allekort1=["12_of_spade","13_of_spade","14_of_spade","12_of_hearts","13_of_hearts","14_of_hearts","12_of_diamonds","13_of_diamonds","14_of_diamonds","12_of_clubs","13_of_clubs","14_of_clubs"];
+
 	kortNummer=0;
 	kort=[[],[],[],[]];
 	antallIkort=[0,0,0,0];
@@ -216,7 +333,16 @@ function newGame(){
 }
 
 $("#startpaanytt").click(function(){
-	if(confirm("Er du sikker på at du vil begynne på nytt?")){
-		newGame();
-	}
+
+	$("#newGame, #newGameShaddow").show();
+});
+
+$("#newGameButton").click(function(){
+	gameWinner = false;
+	newGame();
+	$("#newGame, #newGameShaddow, #winnerLooserHolder").hide();
+});
+
+$("#newGameButtonCancel").click(function(){
+	$("#newGame, #newGameShaddow, #winnerLooserHolder").hide();
 });
