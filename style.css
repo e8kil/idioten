@@ -1,6 +1,11 @@
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
-    margin:0;
-    padding:0;
+/*@font-face {
+    font-family: gamergirl;
+    src: url(/font/eskilfont.ttf);
+}
+*/
+@font-face {
+    font-family: myFirstFont;
+    src: url(eskilfont.ttf);
 }
 
 html {
@@ -57,28 +62,19 @@ body {
 #startpaanytt{
 	width:60%;
 	margin:0 auto;
-	color:white;
-	height:25px;
-	cursor:pointer;
-	border-radius:10px;
-	margin-top:30px;
-	background:green;
-	border:1px solid white;
-}
-#refresh{
-	width:20%;
-	background-image:url('./pics/re.png');
+	background-image:url('./pics/retry.png');
 	background-size:100% 100%;
-	margin:0 auto;
-	height:100%;
+	height:80px;
 }
+
 #newGameShaddow {
 	position: absolute;
 	height:100%;
 	width: 100%;
-/*	background: black;
-	opacity: 0.5;*/
+	background: black;
+	opacity: 0.5;
 	z-index: 60;
+	margin-top:-20px;
 }
 #newGame {
 	position: absolute;
@@ -92,28 +88,21 @@ body {
 	position: absolute;
 	width: 45%;
 	left:55%;
-	background: green;
-	border-radius: 10px;
 	top:5%;
 	float:left;
 	font-size: 10px;
-	text-align:center;
-	color:#fff;
-	padding:5px;
-	box-shadow: 6px 6px 5px #000;
+	background-image:url('./pics/retry.png');
+	background-size:100% 100%;
+	height:60px;
 }
 #newGameButtonCancel {
 	position: absolute;
 	width: 45%;
 	left:0%;
-	background: blue;
-	border-radius: 10px;
 	top:5%;
-	font-size: 10px;
-	text-align: center;
-	color: #fff;
-	padding:5px;
-	box-shadow: 6px 6px 5px #000;
+	background-image:url('./pics/back.png');
+	background-size:100% 100%;
+	height:60px;
 }
 
 #winnerLooserHolder {
@@ -125,4 +114,5 @@ body {
 	text-align: center;
 	color:#fff;
 	font-size: 30px;
+	font-style: gamergirl;
 }

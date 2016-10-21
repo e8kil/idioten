@@ -14,8 +14,8 @@ var hoyde;
 var cardBeforeTop;
 var cardBefore;
 var siteHeight = $("body").height();
-var lenghtBetweenCards = siteHeight/10;
-var lenghtBetweenCardsWhenSmall = siteHeight/13;
+var lenghtBetweenCards = siteHeight/15;
+var lenghtBetweenCardsWhenSmall = siteHeight/17;
 var gameWinner = false;
 $("#newGame, #newGameShaddow, #winnerLooserHolder").hide();
 
@@ -326,15 +326,14 @@ function newGame(){
 	$(".kort").append("<img src ='./pics/tom.png' height='auto' width='100%'>");
 	$("#kortstokk,#kortstokk1").css("height","auto");
 	$("#kortstokk1").html("<img src ='./pics/kortstokk48.png' height='auto' width='100%'>");
-	hoydestartknapp = a*0.0389;
+	hoydestartknapp = a*0.0789;
 	$("#startpaanytt").css("height", ""+hoydestartknapp+"px");
 	runde++;
 
 }
 
 $("#startpaanytt").click(function(){
-
-	$("#newGame, #newGameShaddow").show();
+	newGame();
 });
 
 $("#newGameButton").click(function(){
