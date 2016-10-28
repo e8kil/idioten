@@ -1,0 +1,122 @@
+/*@font-face {
+    font-family: gamergirl;
+    src: url(/font/eskilfont.ttf);
+}
+*/
+@font-face {
+    font-family: myFirstFont;
+    src: url(../font/eskilfont.ttf);
+}
+
+html {
+	width:100%;
+	height:100%;
+}
+body {
+	background-size: cover;
+	background-image: url('../pics/background.jpg');
+	overflow:hidden;
+	margin: 0px !important;
+    padding: 0px !important;
+    	width:100%;
+	height:100%;
+}
+#container {
+	width:100%;
+	height:100%;
+}
+
+#content{
+	margin:0 auto;
+	width:100%;
+	margin-top:20px;
+}
+#kortstokk{
+	width:18%;
+	float:left;
+}
+#kortstokk1{
+	width:16%;
+	position: absolute;
+	left:3%;
+	margin:0 auto;
+	background-size:100%100%;
+	top: 4.5%;
+
+}
+#allekort{
+	width:78%;
+	float:right;
+}
+.kortContainer{
+	width:25%;
+	float:left;
+	height:500px;
+}
+
+.kort{
+	z-index: 1;
+	position: absolute;
+	width:13%;
+	border-radius:7px;
+}
+
+#startpaanytt{
+	position: absolute;
+	width:13%;
+	top:45%;
+	left:4%;
+	margin:0 auto;
+	background-image:url('../pics/retry.png');
+	background-size:100% 100%;
+}
+
+#newGameShaddow {
+	position: absolute;
+	height:100%;
+	width: 100%;
+	background: black;
+	opacity: 0.5;
+	z-index: 60;
+	margin-top:-20px;
+}
+#newGame {
+	position: absolute;
+	width: 30%;
+	left:36%;
+	top:60%;
+	z-index: 100;
+	height:10%;
+}
+#newGameButton {
+	position: absolute;
+	width: 45%;
+	left:55%;
+	top:5%;
+	float:left;
+	font-size: 10px;
+	background-image:url('../pics/retry.png');
+	background-size:100% 100%;
+	height:60px;
+}
+#newGameButtonCancel {
+	position: absolute;
+	width: 45%;
+	left:0%;
+	top:5%;
+	background-image:url('../pics/back.png');
+	background-size:100% 100%;
+	height:60px;
+}
+
+#winnerLooserHolder {
+	position: absolute;
+	width:100%;
+	top:30%;
+	z-index: 150;
+	text-align: center;
+	color:#fff;
+	font-size: 60px;
+	font-family: myFirstFont;
+	text-shadow: 1px 1px 2px black, 0 0 1em #000, 0 0 0.2em #fff;
+}
